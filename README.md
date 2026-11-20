@@ -3,6 +3,10 @@ Browser extension that sends a YouTube video to the Grapplehook desktop app. Chr
 
 On a YouTube or YouTube Music video page, click the toolbar button, pick a quality and press **Send to Grapplehook**. The Extension opens `grapplehook://open?url=<video>&quality=<best|audio|height>` (the contract in ADR 0003 of [Grapplehook](https://github.com/kitsupanic/Grapplehook)) and Grapplehook 0.3.0 or later does the download. On pages that aren't a single video, the button is greyed out.
 
+On any YouTube page you can also right-click a video link and choose **Send to Grapplehook**. It sends that video with the quality you last picked in the popup (Best if you haven't picked one).
+
+Firefox needs version 121 or later.
+
 ## Load it by hand
 
 **Chrome, Edge, Brave, Arc:** open `chrome://extensions` (or `edge://extensions`), turn on **Developer mode**, click **Load unpacked** and pick this folder.
