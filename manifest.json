@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Grapplehook",
+  "version": "0.1.0",
+  "description": "Send the YouTube video you're watching to the Grapplehook app.",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": [
+    "*://youtube.com/*",
+    "*://www.youtube.com/*",
+    "*://m.youtube.com/*",
+    "*://youtu.be/*",
+    "*://music.youtube.com/*"
+  ],
+  "action": {
+    "default_title": "Send to Grapplehook",
+    "default_popup": "src/popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "grapplehook-extension@kitsupanic",
+      "strict_min_version": "115.0"
+    }
+  }
+}
