@@ -4,12 +4,19 @@ import assert from 'node:assert/strict';
 // Fake just the chrome APIs background.js touches.
 const stored = {};
 const updates = [];
-let onClicked;
+const created = [];
+let onClicked, onInstalled, updateFails = false;
 globalThis.chrome = {
-  runtime: { onInstalled: { addListener() {} } },
+  runtime: { onInstalled: { addListener: (fn) => (onInstalled = fn) }, getURL: (path) => `ext://id/${path}` },
   contextMenus: { create() {}, removeAll() {}, onClicked: { addListener: (fn) => (onClicked = fn) } },
   storage: { local: { get: async (key) => (key in stored ? { [key]: stored[key] } : {}) } },
-  tabs: { update: async (id, props) => updates.push([id, props.url]) },
+  tabs: {
+    update: async (id, props) => {
+      if (updateFails) throw new Error('Illegal URL');
+      updates.push([id, props.url]);
+    },
+    create: async (props) => created.push(props.url),
+  },
 };
 await import('../src/background.js');
 
@@ -34,4 +41,23 @@ test('menu click on a playlist-only or channel link sends nothing', async () => 
   await click('https://www.youtube.com/watch?list=PL1');
   await click('https://www.youtube.com/@somechannel');
   assert.deepEqual(updates, []);
+});
+
+test('first install opens the help page, updates do not', () => {
+  created.length = 0;
+  onInstalled({ reason: 'install' });
+  onInstalled({ reason: 'update' });
+  onInstalled({ reason: 'browser_update' });
+  assert.deepEqual(created, ['ext://id/src/help.html']);
+});
+
+test('menu click opens the help page when the browser rejects the link', async () => {
+  created.length = 0;
+  updateFails = true;
+  try {
+    await click('https://youtu.be/Y1');
+  } finally {
+    updateFails = false;
+  }
+  assert.deepEqual(created, ['ext://id/src/help.html']);
 });

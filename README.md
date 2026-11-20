@@ -5,6 +5,8 @@ On a YouTube or YouTube Music video page, click the toolbar button, pick a quali
 
 On any YouTube page you can also right-click a video link and choose **Send to Grapplehook**. It sends that video with the quality you last picked in the popup (Best if you haven't picked one).
 
+If Send does nothing or the browser shows an error, Grapplehook is probably missing or older than 0.3.0. The popup's **Nothing happened?** link opens a help page with a download link; the same page opens once when you first install the Extension.
+
 Firefox needs version 121 or later.
 
 ## Load it by hand
