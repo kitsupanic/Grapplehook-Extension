@@ -7,13 +7,13 @@ const updates = [];
 let onClicked;
 globalThis.chrome = {
   runtime: { onInstalled: { addListener() {} } },
-  contextMenus: { create() {}, onClicked: { addListener: (fn) => (onClicked = fn) } },
+  contextMenus: { create() {}, removeAll() {}, onClicked: { addListener: (fn) => (onClicked = fn) } },
   storage: { local: { get: async (key) => (key in stored ? { [key]: stored[key] } : {}) } },
   tabs: { update: async (id, props) => updates.push([id, props.url]) },
 };
 await import('../src/background.js');
 
-const click = (linkUrl) => onClicked({ menuItemId: 'send', linkUrl }, { id: 7 });
+const click = (linkUrl) => onClicked({ linkUrl }, { id: 7 });
 
 test('menu click sends the link with the last-picked quality', async () => {
   updates.length = 0;

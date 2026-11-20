@@ -4,14 +4,15 @@ import { toSendLink } from './sendLink.js';
 const YOUTUBE_PAGES = ['*://*.youtube.com/*'];
 const VIDEO_LINKS = ['*://*.youtube.com/watch*', '*://*.youtube.com/shorts/*', '*://youtu.be/*'];
 
+// onInstalled also fires on browser updates, when the menu may still exist; clear it to avoid a duplicate-id error.
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
+  chrome.contextMenus.removeAll(() => chrome.contextMenus.create({
     id: 'send',
     title: 'Send to Grapplehook',
     contexts: ['link'],
     documentUrlPatterns: YOUTUBE_PAGES,
     targetUrlPatterns: VIDEO_LINKS,
-  });
+  }));
 });
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
@@ -20,6 +21,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (!link || !tab) return;
   // The service worker can't open a link itself, so hand it to the tab. With Grapplehook installed the
   // browser shows its "open with" prompt and the page stays put.
-  // shortcut: without a handler Firefox swaps the page for an error page; issue #3 adds the help page.
+  // shortcut: a page with a beforeunload guard shows "leave page?", and without a handler Firefox swaps
+  // the page for an error page; the popup avoids both. Revisit with issue #3's help page.
   await chrome.tabs.update(tab.id, { url: link });
 });
