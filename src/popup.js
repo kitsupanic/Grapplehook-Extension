@@ -15,9 +15,13 @@ note.hidden = canSend;
 
 select.addEventListener('change', () => chrome.storage.local.set({ quality: select.value }));
 
-sendButton.addEventListener('click', async () => {
+sendButton.addEventListener('click', () => {
   const link = toSendLink(tab.url, select.value);
+  // Open from the popup, not the tab: navigating the tab fires the page's "leave page?" prompt
+  // and, with no handler installed, replaces the video with an error page (seen in Firefox).
   if (!link) return;
-  await chrome.tabs.update(tab.id, { url: link });
-  window.close();
+  // Firefox draws its "open with Grapplehook?" prompt inside the popup; grow it so the buttons fit.
+  // shortcut: fixed size guessed from one screenshot; measure if the prompt still clips.
+  Object.assign(document.body.style, { width: '480px', minHeight: '320px' });
+  location.href = link;
 });
