@@ -4,7 +4,26 @@
   <meta charset="utf-8">
   <title>This extension needs the Grapplehook app</title>
   <style>
-    body { font: 16px/1.5 system-ui, sans-serif; max-width: 34em; margin: 48px auto; padding: 0 16px; }
+    /* Tokens from the Grapplehook app's DESIGN.md; same font as the popup. */
+    @font-face {
+      font-family: 'Barlow Condensed';
+      src: url('fonts/barlow-condensed-latin-700-normal.woff2') format('woff2');
+      font-weight: 700;
+      font-display: swap;
+    }
+    :root { color-scheme: dark; }
+    body {
+      font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif;
+      max-width: 34em; margin: 48px auto; padding: 0 16px;
+      background: #121110; color: #efe7da;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: #ff8a3d; color: #16120d; }
+    h1 { font: 700 2.25rem/1.1 'Barlow Condensed', system-ui, sans-serif; letter-spacing: -0.01em; text-wrap: balance; margin: 0 0 24px; }
+    strong { font-weight: 600; }
+    a { color: #ff8a3d; text-underline-offset: 3px; font-weight: 600; }
+    a:hover { color: #ff9d5c; }
+    a:focus-visible { outline: 2px solid #ff8a3d; outline-offset: 2px; border-radius: 4px; }
   </style>
 </head>
 <body>
