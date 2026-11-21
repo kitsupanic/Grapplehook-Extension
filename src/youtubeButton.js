@@ -70,6 +70,7 @@ const SITES = {
     row: 'ytmusic-player-bar .middle-controls-buttons',
     // The player bar stays up while you browse, so send the playing track (the player's title link), not the page.
     video: () => document.querySelector('#movie_player .ytp-title-link')?.href,
+    rows: true,
     style: 'height: var(--ytmusic-button-height, 36px); margin: 0 16px 0 0;',
     vars: `--yt-spec-badge-chip-background: transparent; --yt-spec-10-percent-layer: rgba(255,255,255,.1);
       --yt-spec-text-primary: var(--ytmusic-text-primary, #fff); --yt-spec-text-secondary: var(--ytmusic-text-secondary, #aaa);
@@ -151,9 +152,43 @@ function build() {
   return host;
 }
 
+// YouTube Music song rows (artist pages, albums, playlists, search): a round hook button before the row's ⋮,
+// shown on hover like the row's own Like/Dislike/⋮. One click sends that row's song at the saved quality.
+const ROW_CSS = `button { all: unset; box-sizing: border-box; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: #ff8a3d; }
+button:hover { background: rgba(255,255,255,.1); }
+button:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }`;
+const ROW_MENUS = 'ytmusic-responsive-list-item-renderer ytmusic-menu-renderer:not(:has(> .grapplehook-row))';
+const rowVideo = (menu) => menu.closest('ytmusic-responsive-list-item-renderer')?.querySelector('a[href*="watch?v="]')?.href;
+
+function rowButton(menu) {
+  const rowHost = el('div', { class: 'grapplehook-row', style: 'display: flex; align-items: center; flex: none;' });
+  const button = el('button', {}, hook());
+  rowHost.attachShadow({ mode: 'open' }).append(el('style', {}, ROW_CSS), button);
+  // Rows are recycled for other songs as lists scroll, so read the label and the song when used, not once.
+  const name = () => {
+    button.title = `Send to Grapplehook (${label(quality)})`;
+    button.setAttribute('aria-label', button.title);
+  };
+  button.addEventListener('pointerenter', name);
+  button.addEventListener('focus', name);
+  button.addEventListener('click', (e) => {
+    e.stopPropagation(); // don't let the row treat it as a click on the song
+    chrome.runtime.sendMessage({ send: quality, url: rowVideo(menu) });
+  });
+  name();
+  return rowHost;
+}
+
+function ensureRows() {
+  for (const menu of document.querySelectorAll(ROW_MENUS)) {
+    if (rowVideo(menu)) menu.insertBefore(rowButton(menu), menu.querySelector(':scope > yt-button-shape'));
+  }
+}
+
 // YouTube is a single-page app that re-renders on navigation, so re-add the button when it goes missing.
 let host;
 function ensure() {
+  if (site.rows) ensureRows();
   const row = document.querySelector(site.row);
   if (!row) return;
   if (host?.parentElement !== row) row.append(host ??= build());
@@ -164,6 +199,16 @@ function ensure() {
 
 chrome.storage.local.get('quality').then((stored) => {
   quality = stored.quality ?? 'best';
+  // Row buttons hide until their row is hovered or focused, as the row's own buttons do.
+  if (site.rows) {
+    document.head.append(el('style', {}, 'ytmusic-responsive-list-item-renderer:not(:hover):not(:focus-within) .grapplehook-row { opacity: 0; }'));
+  }
   ensure();
-  new MutationObserver(ensure).observe(document.body, { childList: true, subtree: true });
+  // At most once a frame: YouTube Music mutates the page constantly while it plays.
+  let queued = false;
+  new MutationObserver(() => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; ensure(); });
+  }).observe(document.body, { childList: true, subtree: true });
 });
