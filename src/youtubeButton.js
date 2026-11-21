@@ -61,12 +61,15 @@ const SITES = {
   // Inside the Like/Share group, so it gets that group's centring; same size and gap as its buttons.
   'www.youtube.com': {
     row: 'ytd-watch-metadata #top-level-buttons-computed',
+    video: () => location.href,
     style: 'height: 40px; margin: 0 0 0 8px;',
   },
   // After Like, Dislike and the ⋮ menu in the player bar. Music has no --yt-spec colours, so map its own:
   // bare like its icon buttons, with a hover well, on the dark player bar.
   'music.youtube.com': {
     row: 'ytmusic-player-bar .middle-controls-buttons',
+    // The player bar stays up while you browse, so send the playing track (the player's title link), not the page.
+    video: () => document.querySelector('#movie_player .ytp-title-link')?.href,
     style: 'height: var(--ytmusic-button-height, 36px); margin: 0 16px 0 0;',
     vars: `--yt-spec-badge-chip-background: transparent; --yt-spec-10-percent-layer: rgba(255,255,255,.1);
       --yt-spec-text-primary: var(--ytmusic-text-primary, #fff); --yt-spec-text-secondary: var(--ytmusic-text-secondary, #aaa);
@@ -113,7 +116,7 @@ function build() {
     });
     (items.find((i) => i.dataset.quality === quality) ?? items[0]).focus();
   };
-  const send = () => chrome.runtime.sendMessage({ send: quality });
+  const send = () => chrome.runtime.sendMessage({ send: quality, url: site.video() });
 
   sendButton.addEventListener('click', send);
   more.addEventListener('click', () => toggle(menu.hidden));
@@ -154,8 +157,8 @@ function ensure() {
   const row = document.querySelector(site.row);
   if (!row) return;
   if (host?.parentElement !== row) row.append(host ??= build());
-  // The Music player bar stays up while you browse other pages, where there's no single video to send.
-  const display = location.pathname === '/watch' ? 'flex' : 'none';
+  // Hidden until there's a video to send (the Music player bar can be up with nothing loaded).
+  const display = site.video() ? 'flex' : 'none';
   if (host.style.display !== display) host.style.display = display;
 }
 

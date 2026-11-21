@@ -23,9 +23,11 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   await send(tab, info.linkUrl, quality);
 });
 
-// The button the content script adds under a YouTube video sends that page at the quality it names.
+// The button the content script adds sends the video it names (the playing track on YouTube Music), or else
+// its page, at the quality it names. toSendLink still rejects anything that isn't one YouTube video.
 chrome.runtime.onMessage.addListener((message, sender) => {
-  if (typeof message?.send === 'string') send(sender.tab, sender.tab?.url, message.send);
+  if (typeof message?.send !== 'string') return;
+  send(sender.tab, typeof message.url === 'string' ? message.url : sender.tab?.url, message.send);
 });
 
 async function send(tab, url, quality) {
