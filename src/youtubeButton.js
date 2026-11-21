@@ -62,9 +62,8 @@ let quality = 'best';
 function build() {
   const host = document.createElement('div');
   host.id = HOST_ID;
-  // Inline, because YouTube's page CSS outranks :host rules. YouTube's buttons are 40px and centred in a
-  // row that can be taller than they are, so match that rather than stretching to the row.
-  host.style.cssText = 'display: flex; align-self: center; height: 40px; margin: 0 0 0 8px; flex: none;';
+  // Inline, because YouTube's page CSS outranks :host rules. Same size and gap as YouTube's own buttons.
+  host.style.cssText = 'display: flex; height: 40px; margin: 0 0 0 8px; flex: none;';
   const root = host.attachShadow({ mode: 'open' });
   const name = el('span', {});
   const sendButton = el('button', { class: 'send' }, hook(), name);
@@ -124,9 +123,10 @@ function build() {
 let host;
 function ensure() {
   const row = document.querySelector('ytd-watch-metadata #top-level-buttons-computed');
-  if (!row || host?.previousElementSibling === row) return;
+  if (!row || host?.parentElement === row) return;
   host ??= build();
-  row.after(host);
+  // Inside the Like/Share group, so it gets that group's centring whatever the outer row's height.
+  row.append(host);
 }
 
 chrome.storage.local.get('quality').then((stored) => {
