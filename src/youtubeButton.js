@@ -1,4 +1,4 @@
-// Adds a "send to Grapplehook" split button to the action row under a YouTube video.
+// Adds a "send to Grapplehook" split button under a YouTube video and in the YouTube Music player bar.
 // Classic script (content scripts can't be modules); the background script builds and opens the link.
 
 // Same list as popup.html; keep them in step.
@@ -37,18 +37,17 @@ function el(tag, attrs, ...kids) {
   return node;
 }
 
-// YouTube's own colour variables reach into the shadow root, so the pill follows its light and dark themes.
+// YouTube's own colour variables reach into the shadow roots, so the pill follows its light and dark themes.
 const CSS = `
 .pill { display: flex; height: 100%; border-radius: 9999px; font-family: Roboto, Arial, sans-serif; background: var(--yt-spec-badge-chip-background, rgba(0,0,0,.05)); color: var(--yt-spec-text-primary, #0f0f0f); }
-button { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; font-weight: 500; white-space: nowrap; }
+button { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-family: Roboto, Arial, sans-serif; font-size: 14px; font-weight: 500; white-space: nowrap; }
 .pill > button:hover, .pill > button[aria-expanded="true"] { background: var(--yt-spec-10-percent-layer, rgba(0,0,0,.1)); }
 .send { padding: 0 12px 0 10px; border-radius: 9999px 0 0 9999px; }
 .send svg { color: #ff8a3d; }
 .more { padding: 0 8px 0 6px; border-radius: 0 9999px 9999px 0; position: relative; }
 .more::before { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: var(--yt-spec-10-percent-layer, rgba(0,0,0,.1)); }
 button:focus-visible { outline: 2px solid var(--yt-spec-call-to-action, #065fd4); outline-offset: 2px; }
-/* Fixed, not absolute: YouTube's action row clips overflow. */
-.menu { position: fixed; z-index: 2300; min-width: 200px; padding: 8px 0; border-radius: 12px; background: var(--yt-spec-menu-background, #fff); color: var(--yt-spec-text-primary, #0f0f0f); box-shadow: 0 4px 32px rgba(0,0,0,.1); }
+.menu { position: fixed; z-index: 2300; min-width: 200px; padding: 8px 0; border-radius: 12px; font-family: Roboto, Arial, sans-serif; background: var(--yt-spec-menu-background, #fff); color: var(--yt-spec-text-primary, #0f0f0f); box-shadow: 0 4px 32px rgba(0,0,0,.1); }
 .menu[hidden] { display: none; }
 .menu p { margin: 0; padding: 4px 16px 8px; font-size: 12px; color: var(--yt-spec-text-secondary, #606060); }
 .menu button { display: flex; width: 100%; height: 36px; padding: 0 16px 0 12px; gap: 12px; font-weight: 400; }
@@ -57,20 +56,47 @@ button:focus-visible { outline: 2px solid var(--yt-spec-call-to-action, #065fd4)
 .menu button[aria-checked="true"] svg { visibility: visible; }
 `;
 
+// Where the button goes on each site. Styles are inline because the page's CSS outranks :host rules.
+const SITES = {
+  // Inside the Like/Share group, so it gets that group's centring; same size and gap as its buttons.
+  'www.youtube.com': {
+    row: 'ytd-watch-metadata #top-level-buttons-computed',
+    video: () => location.href,
+    style: 'height: 40px; margin: 0 0 0 8px;',
+  },
+  // After Like, Dislike and the ⋮ menu in the player bar. Music has no --yt-spec colours, so map its own:
+  // bare like its icon buttons, with a hover well, on the dark player bar.
+  'music.youtube.com': {
+    row: 'ytmusic-player-bar .middle-controls-buttons',
+    // The player bar stays up while you browse, so send the playing track (the player's title link), not the page.
+    video: () => document.querySelector('#movie_player .ytp-title-link')?.href,
+    rows: true,
+    style: 'height: var(--ytmusic-button-height, 36px); margin: 0 16px 0 0;',
+    vars: `--yt-spec-badge-chip-background: transparent; --yt-spec-10-percent-layer: rgba(255,255,255,.1);
+      --yt-spec-text-primary: var(--ytmusic-text-primary, #fff); --yt-spec-text-secondary: var(--ytmusic-text-secondary, #aaa);
+      --yt-spec-menu-background: var(--ytmusic-menu-popup-background, #212121); --yt-spec-call-to-action: #fff;`,
+  },
+};
+const site = SITES[location.hostname];
+
 let quality = 'best';
 
 function build() {
-  const host = document.createElement('div');
-  host.id = HOST_ID;
-  // Inline, because YouTube's page CSS outranks :host rules. Same size and gap as YouTube's own buttons.
-  host.style.cssText = 'display: flex; height: 40px; margin: 0 0 0 8px; flex: none;';
+  const host = el('div', { id: HOST_ID, style: `display: flex; flex: none; ${site.style} ${site.vars ?? ''}` });
   const root = host.attachShadow({ mode: 'open' });
   const name = el('span', {});
   const sendButton = el('button', { class: 'send' }, hook(), name);
   const more = el('button', { class: 'more', 'aria-haspopup': 'true', 'aria-expanded': 'false', 'aria-label': 'Pick a Grapplehook quality' }, chevron());
+  root.append(el('style', {}, CSS), el('div', { class: 'pill' }, sendButton, more));
+
+  // The menu lives in its own host on <body>: YouTube's action row clips overflow, and the Music player bar's
+  // transform would make a fixed menu inside it position against the bar instead of the window.
+  const menuHost = el('div', { style: site.vars ?? '' });
+  const menuRoot = menuHost.attachShadow({ mode: 'open' });
   const items = QUALITIES.map(([v, text]) => el('button', { role: 'menuitemradio', 'data-quality': v }, check(), text));
   const menu = el('div', { class: 'menu', role: 'menu', hidden: '' }, el('p', {}, 'Send to Grapplehook'), ...items);
-  root.append(el('style', {}, CSS), el('div', { class: 'pill' }, sendButton, more), menu);
+  menuRoot.append(el('style', {}, CSS), menu);
+  document.body.append(menuHost);
 
   const render = () => {
     name.textContent = label(quality);
@@ -81,11 +107,17 @@ function build() {
   const toggle = (open) => {
     menu.hidden = !open;
     more.setAttribute('aria-expanded', open);
+    if (!open) return;
+    // Below the button, or above it when the button is near the bottom (the Music player bar).
     const r = more.getBoundingClientRect();
-    Object.assign(menu.style, { top: `${r.bottom + 8}px`, right: `${document.documentElement.clientWidth - r.right}px` });
-    if (open) (items.find((i) => i.dataset.quality === quality) ?? items[0]).focus();
+    const below = r.bottom + 8 + menu.offsetHeight <= innerHeight;
+    Object.assign(menu.style, {
+      top: `${below ? r.bottom + 8 : r.top - 8 - menu.offsetHeight}px`,
+      right: `${document.documentElement.clientWidth - r.right}px`,
+    });
+    (items.find((i) => i.dataset.quality === quality) ?? items[0]).focus();
   };
-  const send = () => chrome.runtime.sendMessage({ send: quality });
+  const send = () => chrome.runtime.sendMessage({ send: quality, url: site.video() });
 
   sendButton.addEventListener('click', send);
   more.addEventListener('click', () => toggle(menu.hidden));
@@ -100,16 +132,17 @@ function build() {
     send();
   });
   menu.addEventListener('keydown', (e) => {
-    const i = items.indexOf(root.activeElement);
+    const i = items.indexOf(menuRoot.activeElement);
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault();
       items[(i + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length].focus();
     }
+    if (e.key === 'Escape') { toggle(false); more.focus(); }
   });
-  root.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !menu.hidden) { toggle(false); more.focus(); }
+  document.addEventListener('click', (e) => {
+    const path = e.composedPath();
+    if (!path.includes(host) && !path.includes(menuHost)) toggle(false);
   });
-  document.addEventListener('click', (e) => { if (!e.composedPath().includes(host)) toggle(false); });
   // A fixed menu would drift from its button, so scrolling closes it.
   addEventListener('scroll', () => menu.hidden || toggle(false), { passive: true });
   chrome.storage.onChanged.addListener((changes) => {
@@ -119,18 +152,63 @@ function build() {
   return host;
 }
 
-// YouTube is a single-page app that re-renders the action row on navigation, so re-add the button when it goes missing.
+// YouTube Music song rows (artist pages, albums, playlists, search): a round hook button before the row's ⋮,
+// shown on hover like the row's own Like/Dislike/⋮. One click sends that row's song at the saved quality.
+const ROW_CSS = `button { all: unset; box-sizing: border-box; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: #ff8a3d; }
+button:hover { background: rgba(255,255,255,.1); }
+button:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }`;
+const ROW_MENUS = 'ytmusic-responsive-list-item-renderer ytmusic-menu-renderer:not(:has(> .grapplehook-row))';
+const rowVideo = (menu) => menu.closest('ytmusic-responsive-list-item-renderer')?.querySelector('a[href*="watch?v="]')?.href;
+
+function rowButton(menu) {
+  const rowHost = el('div', { class: 'grapplehook-row', style: 'display: flex; align-items: center; flex: none;' });
+  const button = el('button', {}, hook());
+  rowHost.attachShadow({ mode: 'open' }).append(el('style', {}, ROW_CSS), button);
+  // Rows are recycled for other songs as lists scroll, so read the label and the song when used, not once.
+  const name = () => {
+    button.title = `Send to Grapplehook (${label(quality)})`;
+    button.setAttribute('aria-label', button.title);
+  };
+  button.addEventListener('pointerenter', name);
+  button.addEventListener('focus', name);
+  button.addEventListener('click', (e) => {
+    e.stopPropagation(); // don't let the row treat it as a click on the song
+    chrome.runtime.sendMessage({ send: quality, url: rowVideo(menu) });
+  });
+  name();
+  return rowHost;
+}
+
+function ensureRows() {
+  for (const menu of document.querySelectorAll(ROW_MENUS)) {
+    if (rowVideo(menu)) menu.insertBefore(rowButton(menu), menu.querySelector(':scope > yt-button-shape'));
+  }
+}
+
+// YouTube is a single-page app that re-renders on navigation, so re-add the button when it goes missing.
 let host;
 function ensure() {
-  const row = document.querySelector('ytd-watch-metadata #top-level-buttons-computed');
-  if (!row || host?.parentElement === row) return;
-  host ??= build();
-  // Inside the Like/Share group, so it gets that group's centring whatever the outer row's height.
-  row.append(host);
+  if (site.rows) ensureRows();
+  const row = document.querySelector(site.row);
+  if (!row) return;
+  if (host?.parentElement !== row) row.append(host ??= build());
+  // Hidden until there's a video to send (the Music player bar can be up with nothing loaded).
+  const display = site.video() ? 'flex' : 'none';
+  if (host.style.display !== display) host.style.display = display;
 }
 
 chrome.storage.local.get('quality').then((stored) => {
   quality = stored.quality ?? 'best';
+  // Row buttons hide until their row is hovered or focused, as the row's own buttons do.
+  if (site.rows) {
+    document.head.append(el('style', {}, 'ytmusic-responsive-list-item-renderer:not(:hover):not(:focus-within) .grapplehook-row { opacity: 0; }'));
+  }
   ensure();
-  new MutationObserver(ensure).observe(document.body, { childList: true, subtree: true });
+  // At most once a frame: YouTube Music mutates the page constantly while it plays.
+  let queued = false;
+  new MutationObserver(() => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; ensure(); });
+  }).observe(document.body, { childList: true, subtree: true });
 });

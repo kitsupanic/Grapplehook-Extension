@@ -80,3 +80,11 @@ test('page button on a page that is not one video sends nothing', async () => {
   await new Promise((r) => setTimeout(r));
   assert.deepEqual(updates, []);
 });
+
+test('page button on YouTube Music sends the playing track, not the page it is on', async () => {
+  updates.length = 0;
+  onMessage({ send: 'audio', url: 'https://music.youtube.com/watch?list=RD1&v=M1' }, { tab: { id: 9, url: 'https://music.youtube.com/explore' } });
+  onMessage({ send: 'audio', url: 'https://example.com/watch?v=M1' }, { tab: { id: 9, url: 'https://music.youtube.com/explore' } });
+  await new Promise((r) => setTimeout(r));
+  assert.deepEqual(updates, [[9, 'grapplehook://open?url=https%3A%2F%2Fmusic.youtube.com%2Fwatch%3Fv%3DM1&quality=audio']]);
+});
