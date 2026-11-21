@@ -62,8 +62,9 @@ let quality = 'best';
 function build() {
   const host = document.createElement('div');
   host.id = HOST_ID;
-  // Inline, because YouTube's page CSS outranks :host rules; the pill stretches to the row's height (40px today).
-  host.style.cssText = 'display: flex; align-self: stretch; margin: 0 0 0 8px; flex: none;';
+  // Inline, because YouTube's page CSS outranks :host rules. YouTube's buttons are 40px and centred in a
+  // row that can be taller than they are, so match that rather than stretching to the row.
+  host.style.cssText = 'display: flex; align-self: center; height: 40px; margin: 0 0 0 8px; flex: none;';
   const root = host.attachShadow({ mode: 'open' });
   const name = el('span', {});
   const sendButton = el('button', { class: 'send' }, hook(), name);
