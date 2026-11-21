@@ -4,29 +4,131 @@
   <meta charset="utf-8">
   <title>Grapplehook</title>
   <style>
-    body { font: 14px system-ui, sans-serif; margin: 12px; width: 220px; }
-    label, select, button { display: block; width: 100%; }
-    select, button { margin-top: 6px; padding: 4px; font: inherit; }
-    button:disabled { opacity: 0.5; }
-    #note { color: #666; margin: 8px 0 0; }
-    #help { display: block; margin-top: 8px; font-size: 12px; color: #666; }
+    /* Tokens from the Grapplehook app's DESIGN.md ("The Claim Tag"). Display face: Barlow Condensed, SIL OFL 1.1 (fonts/OFL.txt). */
+    @font-face {
+      font-family: 'Barlow Condensed';
+      src: url('fonts/barlow-condensed-latin-700-normal.woff2') format('woff2');
+      font-weight: 700;
+      font-display: swap;
+    }
+    :root {
+      --ground: #121110;
+      --field: #1e1c19;
+      --field-2: #2a2723;
+      --line: #3a352f;
+      --ink: #efe7da;
+      --muted: #a69c8f;
+      --tag: #ff8a3d;
+      --tag-hover: #ff9d5c;
+      --tag-ink: #16120d;
+      font-size: 14px;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      width: 280px;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--tag); color: var(--tag-ink); }
+
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 48px;
+      padding: 0 16px;
+      background: var(--field);
+      font: 700 1.36rem 'Barlow Condensed', system-ui, sans-serif;
+      letter-spacing: 0.01em;
+    }
+    .wordmark svg { color: var(--tag); flex-shrink: 0; }
+
+    main { display: grid; gap: 8px; padding: 16px; }
+    label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    select, button {
+      width: 100%;
+      height: 40px;
+      font: inherit;
+      color: var(--ink);
+      border: 0;
+      border-radius: 6px;
+    }
+    select {
+      appearance: none;
+      padding: 0 40px 0 16px;
+      background: var(--field) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23a69c8f' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5'/%3E%3C/svg%3E") no-repeat right 16px center;
+      cursor: pointer;
+      transition: background-color 120ms ease-out;
+    }
+    select:hover { background-color: var(--field-2); }
+    button {
+      margin-top: 8px;
+      padding: 0 16px;
+      font-weight: 600;
+      background: var(--tag);
+      color: var(--tag-ink);
+      cursor: pointer;
+      transition: background-color 120ms ease-out;
+    }
+    button:hover:not(:disabled) { background: var(--tag-hover); }
+    /* No video: the send drops back to a default button, per the app's Live Stock Rule. */
+    button:disabled { background: var(--field-2); color: var(--ink); opacity: 0.45; cursor: not-allowed; }
+    select:focus-visible, button:focus-visible, a:focus-visible {
+      outline: 2px solid var(--tag);
+      outline-offset: 2px;
+    }
+    #note { margin: 0; color: var(--muted); }
+    #help {
+      justify-self: start;
+      margin-top: 8px;
+      font-size: 0.857rem;
+      color: var(--muted);
+      text-underline-offset: 3px;
+      border-radius: 4px;
+    }
+    #help:hover { color: var(--tag); }
   </style>
 </head>
 <body>
-  <label for="quality">Quality</label>
-  <select id="quality">
-    <option value="best">Best</option>
-    <option value="2160">2160p</option>
-    <option value="1440">1440p</option>
-    <option value="1080">1080p</option>
-    <option value="720">720p</option>
-    <option value="480">480p</option>
-    <option value="360">360p</option>
-    <option value="audio">Audio only</option>
-  </select>
-  <button id="send" disabled>Send to Grapplehook</button>
-  <p id="note" hidden>There's no single video on this page.</p>
-  <a id="help" href="help.html" target="_blank">Nothing happened?</a>
+  <header class="wordmark">
+    <!-- The app's hook mark (HookMark.svelte). Decorative; the wordmark carries the name. -->
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="3.2" r="1.4" />
+      <path d="M11.9 4.6c-.2 1.1-.6 1.7-.5 2.4.2.6 2 1.3 2.1 2.7.1 1.2-.7 1.9-1.6 2.2" />
+      <g transform="translate(11.8 11.8) rotate(-18)">
+        <path d="M-1.6 -2.4H1.6L3.8 .6V9.6H-3.8V.6Z" />
+        <circle r="1.1" />
+      </g>
+    </svg>
+    grapplehook
+  </header>
+  <main>
+    <label for="quality">Quality</label>
+    <select id="quality">
+      <option value="best">Best</option>
+      <option value="2160">2160p</option>
+      <option value="1440">1440p</option>
+      <option value="1080">1080p</option>
+      <option value="720">720p</option>
+      <option value="480">480p</option>
+      <option value="360">360p</option>
+      <option value="audio">Audio only</option>
+    </select>
+    <button id="send" disabled>Send to Grapplehook</button>
+    <p id="note" hidden>There's no single video on this page.</p>
+    <a id="help" href="help.html" target="_blank">Nothing happened?</a>
+  </main>
   <script type="module" src="popup.js"></script>
 </body>
 </html>
