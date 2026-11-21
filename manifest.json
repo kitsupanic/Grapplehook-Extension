@@ -25,6 +25,12 @@
     },
     "default_popup": "src/popup.html"
   },
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": ["src/youtubeButton.js"]
+    }
+  ],
   "background": {
     "service_worker": "src/background.js",
     "scripts": ["src/background.js"],

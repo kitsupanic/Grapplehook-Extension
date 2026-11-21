@@ -5,9 +5,13 @@ import assert from 'node:assert/strict';
 const stored = {};
 const updates = [];
 const created = [];
-let onClicked, onInstalled, updateFails = false;
+let onClicked, onInstalled, onMessage, updateFails = false;
 globalThis.chrome = {
-  runtime: { onInstalled: { addListener: (fn) => (onInstalled = fn) }, getURL: (path) => `ext://id/${path}` },
+  runtime: {
+    onInstalled: { addListener: (fn) => (onInstalled = fn) },
+    onMessage: { addListener: (fn) => (onMessage = fn) },
+    getURL: (path) => `ext://id/${path}`,
+  },
   contextMenus: { create() {}, removeAll() {}, onClicked: { addListener: (fn) => (onClicked = fn) } },
   storage: { local: { get: async (key) => (key in stored ? { [key]: stored[key] } : {}) } },
   tabs: {
@@ -60,4 +64,19 @@ test('menu click opens the help page when the browser rejects the link', async (
     updateFails = false;
   }
   assert.deepEqual(created, ['ext://id/src/help.html']);
+});
+
+test('page button sends its own tab at the quality it names', async () => {
+  updates.length = 0;
+  onMessage({ send: 'audio' }, { tab: { id: 9, url: 'https://www.youtube.com/watch?v=Z1&t=42s' } });
+  await new Promise((r) => setTimeout(r));
+  assert.deepEqual(updates, [[9, 'grapplehook://open?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DZ1&quality=audio']]);
+});
+
+test('page button on a page that is not one video sends nothing', async () => {
+  updates.length = 0;
+  onMessage({ send: 'best' }, { tab: { id: 9, url: 'https://www.youtube.com/' } });
+  onMessage({ other: true }, { tab: { id: 9, url: 'https://www.youtube.com/watch?v=Z1' } });
+  await new Promise((r) => setTimeout(r));
+  assert.deepEqual(updates, []);
 });

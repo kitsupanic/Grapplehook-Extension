@@ -20,7 +20,16 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   const { quality = 'best' } = await chrome.storage.local.get('quality');
-  const link = toSendLink(info.linkUrl, quality);
+  await send(tab, info.linkUrl, quality);
+});
+
+// The button the content script adds under a YouTube video sends that page at the quality it names.
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (typeof message?.send === 'string') send(sender.tab, sender.tab?.url, message.send);
+});
+
+async function send(tab, url, quality) {
+  const link = toSendLink(url, quality);
   if (!link || !tab) return;
   // The service worker can't open a link itself, so hand it to the tab. With Grapplehook installed the
   // browser shows its "open with" prompt and the page stays put.
@@ -33,4 +42,4 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   } catch {
     await openHelp();
   }
-});
+}
