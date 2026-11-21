@@ -39,13 +39,12 @@ function el(tag, attrs, ...kids) {
 
 // YouTube's own colour variables reach into the shadow root, so the pill follows its light and dark themes.
 const CSS = `
-:host { display: inline-flex; align-self: center; height: 36px; margin-left: 8px; flex: none; font-family: Roboto, Arial, sans-serif; }
-.pill { display: flex; height: 36px; border-radius: 18px; background: var(--yt-spec-badge-chip-background, rgba(0,0,0,.05)); color: var(--yt-spec-text-primary, #0f0f0f); }
-button { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; font-weight: 500; line-height: 36px; white-space: nowrap; }
+.pill { display: flex; height: 100%; border-radius: 9999px; font-family: Roboto, Arial, sans-serif; background: var(--yt-spec-badge-chip-background, rgba(0,0,0,.05)); color: var(--yt-spec-text-primary, #0f0f0f); }
+button { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; font-weight: 500; white-space: nowrap; }
 .pill > button:hover, .pill > button[aria-expanded="true"] { background: var(--yt-spec-10-percent-layer, rgba(0,0,0,.1)); }
-.send { padding: 0 12px 0 10px; border-radius: 18px 0 0 18px; }
+.send { padding: 0 12px 0 10px; border-radius: 9999px 0 0 9999px; }
 .send svg { color: #ff8a3d; }
-.more { padding: 0 8px 0 6px; border-radius: 0 18px 18px 0; position: relative; }
+.more { padding: 0 8px 0 6px; border-radius: 0 9999px 9999px 0; position: relative; }
 .more::before { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: var(--yt-spec-10-percent-layer, rgba(0,0,0,.1)); }
 button:focus-visible { outline: 2px solid var(--yt-spec-call-to-action, #065fd4); outline-offset: 2px; }
 /* Fixed, not absolute: YouTube's action row clips overflow. */
@@ -63,6 +62,8 @@ let quality = 'best';
 function build() {
   const host = document.createElement('div');
   host.id = HOST_ID;
+  // Inline, because YouTube's page CSS outranks :host rules; the pill stretches to the row's height (40px today).
+  host.style.cssText = 'display: flex; align-self: stretch; margin: 0 0 0 8px; flex: none;';
   const root = host.attachShadow({ mode: 'open' });
   const name = el('span', {});
   const sendButton = el('button', { class: 'send' }, hook(), name);
