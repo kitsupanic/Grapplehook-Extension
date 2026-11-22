@@ -11,6 +11,10 @@ If Send does nothing or the browser shows an error, Grapplehook is probably miss
 
 Firefox needs version 121 or later.
 
+## Privacy
+
+The Extension collects no data and sends nothing anywhere. It reads the address of YouTube pages to build the link, keeps your last picked quality in the browser's own extension storage, and hands the link to Grapplehook on your computer. It has no access to sites other than YouTube and YouTube Music.
+
 ## Load it by hand
 
 **Chrome, Edge, Brave, Arc:** open `chrome://extensions` (or `edge://extensions`), turn on **Developer mode**, click **Load unpacked** and pick this folder.
@@ -24,3 +28,11 @@ Needs Node 20 or later. No install step.
 ```bash
 npm test
 ```
+
+## Build the store zip
+
+```bash
+npm run build
+```
+
+This writes `dist/grapplehook-extension-<version>.zip` with only what the browser needs (`manifest.json`, `src/`, `icons/`, `LICENSE`). The same zip goes to the Chrome Web Store and Firefox Add-ons: Chrome reads `background.service_worker`, Firefox reads `background.scripts`. Bump `version` in `manifest.json` before each upload, since both stores refuse a version they've already seen.
