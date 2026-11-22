@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "build": "V=$(node -p \"require('./manifest.json').version\") && mkdir -p dist && rm -f dist/*.zip && zip -qrX dist/grapplehook-extension-$V.zip manifest.json src icons LICENSE -x '*.DS_Store' && echo dist/grapplehook-extension-$V.zip"
   }
 }
