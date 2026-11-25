@@ -9,13 +9,22 @@ On any YouTube page you can also right-click a video link and choose **Send to G
 
 If Send does nothing or the browser shows an error, Grapplehook is probably missing or older than 0.3.0. The popup's **Nothing happened?** link opens a help page with a download link; the same page opens once when you first install the Extension.
 
-Firefox needs version 121 or later.
+## Install
+
+<p>
+  <a href="https://addons.mozilla.org/addon/grapplehook/"><img src="docs/readme/extension-firefox.svg" height="64" alt="Add to Firefox (Firefox 121 or later)"></a>
+  <a href="https://chromewebstore.google.com/detail/foxified/cldmemdnllncchfahbcnjijheaolemfk"><img src="docs/readme/extension-chromium.svg" height="64" alt="Get Foxified for Chrome, Edge, Brave and Arc"></a>
+</p>
+
+On **Chrome, Edge, Brave or Arc**, add [Foxified](https://chromewebstore.google.com/detail/foxified/cldmemdnllncchfahbcnjijheaolemfk) first. It's a free extension that runs Firefox add-ons. Then open [Grapplehook on Firefox Add-ons](https://addons.mozilla.org/addon/grapplehook/) and add it through Foxified. Rather not use Foxified? [Load it by hand](#load-it-by-hand).
 
 ## Privacy
 
 The Extension collects no data and sends nothing anywhere. It reads the address of YouTube pages to build the link, keeps your last picked quality in the browser's own extension storage, and hands the link to Grapplehook on your computer. It has no access to sites other than YouTube and YouTube Music.
 
 ## Load it by hand
+
+For development, or to skip Foxified on a Chromium browser.
 
 **Chrome, Edge, Brave, Arc:** open `chrome://extensions` (or `edge://extensions`), turn on **Developer mode**, click **Load unpacked** and pick this folder.
 
