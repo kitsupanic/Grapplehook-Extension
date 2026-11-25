@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720" role="img" aria-labelledby="t">
+<title id="t">Under a YouTube video, next to Like and Share, the Grapplehook button's arrow is opened and 1080p is picked. The link travels to the Grapplehook app, which opens with the video and 1080p already chosen.</title>
+<style>
+.k { animation-duration: 9s; animation-iteration-count: infinite; animation-fill-mode: both; animation-timing-function: linear; }
+.cursor { animation-name: cursor; }
+.more { animation-name: more; }
+.menu { animation-name: menu; transform-box: fill-box; transform-origin: 85% 0; }
+.pick { animation-name: pick; }
+.was { animation-name: was; }
+.now { animation-name: now; }
+.rope { animation-name: rope; }
+.tag { animation-name: ride; }
+.app { animation-name: app; }
+.ring { animation-name: ring; }
+.hint { animation-name: hint; }
+.typed { animation-name: type; }
+.card { animation-name: card; }
+.quality { animation-name: quality; }
+.qtext { animation-name: qtext; }
+@keyframes cursor {
+  0%, 8% { transform: translate(400px, 260px) scale(1); animation-timing-function: cubic-bezier(.6,0,.2,1); }
+  20% { transform: translate(579px, 466px) scale(1); }
+  21.5% { transform: translate(579px, 466px) scale(.82); }
+  23% { transform: translate(579px, 466px) scale(1); animation-timing-function: cubic-bezier(.6,0,.2,1); }
+  32% { transform: translate(548px, 629px) scale(1); }
+  35% { transform: translate(548px, 629px) scale(.82); }
+  37% { transform: translate(548px, 629px) scale(1); animation-timing-function: cubic-bezier(.3,0,.2,1); }
+  50%, 90% { transform: translate(420px, 500px) scale(1); animation-timing-function: cubic-bezier(.6,0,.2,1); }
+  100% { transform: translate(400px, 260px) scale(1); }
+}
+@keyframes more { 0%, 19% { opacity: 0 } 20%, 37% { opacity: 1 } 39%, 100% { opacity: 0 } }
+@keyframes menu {
+  0%, 21.5% { opacity: 0; transform: scale(.96); }
+  24%, 36.5% { opacity: 1; transform: scale(1); }
+  38.5%, 100% { opacity: 0; transform: scale(.98); }
+}
+@keyframes pick { 0%, 30% { opacity: 0 } 31.5%, 37% { opacity: 1 } 38%, 100% { opacity: 0 } }
+@keyframes was {
+  0%, 37% { opacity: 1; transform: translateY(0); }
+  39%, 91% { opacity: 0; transform: translateY(-8px); }
+  94%, 100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes now {
+  0%, 37% { opacity: 0; transform: translateY(8px); }
+  39%, 91% { opacity: 1; transform: translateY(0); }
+  94%, 100% { opacity: 0; transform: translateY(8px); }
+}
+@keyframes rope {
+  0%, 38% { stroke-dashoffset: 1; opacity: 1; }
+  55% { stroke-dashoffset: 0; opacity: 1; }
+  62%, 90% { stroke-dashoffset: 0; opacity: .35; }
+  96%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+/* points on the rope's curve (M520 452 Q620 20 720 130) at t = 0, .2, .4, .6, .8, 1 */
+@keyframes ride {
+  0%, 38% { opacity: 0; transform: translate(520px, 452px) rotate(-40deg); }
+  39% { opacity: 1; transform: translate(520px, 452px) rotate(-40deg); animation-timing-function: ease-in; }
+  42.2% { transform: translate(560px, 301px) rotate(-62deg); }
+  45.4% { transform: translate(600px, 193px) rotate(-50deg); }
+  48.6% { transform: translate(640px, 129px) rotate(-18deg); }
+  51.8% { transform: translate(680px, 108px) rotate(8deg); animation-timing-function: ease-out; }
+  55% { opacity: 1; transform: translate(720px, 130px) rotate(30deg); }
+  58%, 100% { opacity: 0; transform: translate(720px, 130px) rotate(30deg); }
+}
+@keyframes app { 0%, 48% { transform: translateY(0) } 52% { transform: translateY(-6px) } 56%, 100% { transform: translateY(0) } }
+@keyframes ring { 0%, 54% { opacity: 0 } 56%, 66% { opacity: 1 } 70%, 100% { opacity: 0 } }
+@keyframes hint { 0%, 55% { opacity: 1 } 56%, 95% { opacity: 0 } 98%, 100% { opacity: 1 } }
+@keyframes type {
+  0%, 56% { clip-path: inset(0 100% 0 0); opacity: 1; animation-timing-function: steps(34, end); }
+  63%, 90% { clip-path: inset(0 0 0 0); opacity: 1; }
+  95%, 100% { clip-path: inset(0 0 0 0); opacity: 0; }
+}
+@keyframes card {
+  0%, 62% { opacity: 0; transform: translateY(12px); animation-timing-function: cubic-bezier(.22,1,.36,1); }
+  70%, 90% { opacity: 1; transform: translateY(0); }
+  95%, 100% { opacity: 0; transform: translateY(0); }
+}
+@keyframes quality { 0%, 68% { opacity: 0 } 71%, 90% { opacity: 1 } 95%, 100% { opacity: 0 } }
+@keyframes qtext { 0%, 68% { fill: #efe7da } 71%, 90% { fill: #16120d } 95%, 100% { fill: #efe7da } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+</style>
+<defs><linearGradient id="pl-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d7895a"/><stop offset=".6" stop-color="#7b4a55"/><stop offset="1" stop-color="#3a3243"/></linearGradient><clipPath id="pl-clip"><rect width="560" height="280" rx="10"/></clipPath><linearGradient id="cd-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d7895a"/><stop offset=".6" stop-color="#7b4a55"/><stop offset="1" stop-color="#3a3243"/></linearGradient><clipPath id="cd-clip"><rect width="288" height="128" rx="0"/></clipPath><clipPath id="win"><rect width="1000" height="720" rx="12"/></clipPath><clipPath id="cardclip"><rect x="676" y="180" width="288" height="200" rx="10"/></clipPath><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="22"/></filter><filter id="sh2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter><symbol id="hook" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="3.2" r="1.4"/><path d="M11.9 4.6c-.2 1.1-.6 1.7-.5 2.4.2.6 2 1.3 2.1 2.7.1 1.2-.7 1.9-1.6 2.2"/><g transform="translate(11.8 11.8) rotate(-18)"><path d="M-1.6 -2.4H1.6L3.8 .6V9.6H-3.8V.6Z"/><circle r="1.1"/></g></symbol></defs>
+<g clip-path="url(#win)">
+<rect width="1000" height="720" fill="#121110"/>
+<rect x="20" y="20" width="600" height="680" rx="12" fill="#000" opacity=".45" filter="url(#sh)" transform="translate(0 15)"/>
+<rect x="20" y="20" width="600" height="680" rx="12" fill="#181818" stroke="#262626"/>
+<path d="M20 64 H620" stroke="#2a2a2a"/>
+<circle cx="39" cy="42" r="5" fill="#3d3d3d"/>
+<circle cx="56" cy="42" r="5" fill="#3d3d3d"/>
+<circle cx="73" cy="42" r="5" fill="#3d3d3d"/>
+<rect x="101" y="27.5" width="505" height="29" rx="14.5" fill="#262626"/>
+<text x="117" y="46.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#9a9a9a">youtube.com/watch?v=…</text>
+<g transform="translate(40 84)" clip-path="url(#pl-clip)"><rect width="560" height="280" fill="url(#pl-sky)"/><path d="M0 73.6 L560 223.6 V280 H0Z" fill="#33424a"/><path d="M0 219.7 L560 120.9 V280 H0Z" fill="#26323a"/><circle cx="392" cy="106.4" r="25.7" fill="#f6c98a"/></g>
+<path d="M8 5.5v13l10.5-6.5Z" fill="#fff" fill-opacity=".9" transform="translate(295 199) scale(2.083)"/>
+<rect x="54" y="348" width="532" height="4" fill="#fff" fill-opacity=".25"/><rect x="54" y="348" width="180.9" height="4" fill="#efe7da"/>
+<rect x="40" y="384" width="400" height="14" rx="4" fill="#4a4a4a"/><rect x="40" y="412" width="240" height="14" rx="4" fill="#4a4a4a"/>
+<circle cx="60" cy="472" r="20" fill="#5a4a40"/><rect x="88" y="465" width="90" height="14" rx="4" fill="#333"/>
+<rect x="326" y="450" width="60" height="44" rx="22" fill="#272727"/>
+<text x="356" y="477.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#f1f1f1" font-weight="500" text-anchor="middle">Like</text>
+<rect x="394" y="450" width="70" height="44" rx="22" fill="#272727"/>
+<text x="429" y="477.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#f1f1f1" font-weight="500" text-anchor="middle">Share</text>
+<rect x="472" y="450" width="128" height="44" rx="22" fill="#272727"/>
+<path class="k more" d="M562 450 H578 A22 22 0 0 1 578 494 H562 Z" fill="#3f3f3f" opacity="0"/>
+<path d="M562 458 V486" stroke="#444"/>
+<use href="#hook" x="482" y="461" width="22" height="22" style="color:#ff8a3d"/>
+<g class="k was" opacity="0"><text x="510" y="477.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#f1f1f1" font-weight="500">Best</text></g>
+<g class="k now" opacity="1"><text x="510" y="477.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#f1f1f1" font-weight="500">1080p</text></g>
+<g transform="translate(569 461) scale(.9167)" fill="none" stroke="#f1f1f1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m7 10 5 5 5-5"/></g>
+<g class="k menu" opacity="0">
+<rect x="430" y="506" width="170" height="170" rx="12" fill="#000" opacity=".5" filter="url(#sh2)" transform="translate(0 6)"/>
+<rect x="430" y="506" width="170" height="170" rx="12" fill="#282828"/>
+<text x="446" y="529" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#aaa" font-weight="400">Send to Grapplehook</text>
+<rect class="k pick" x="430" y="616" width="170" height="26" fill="#3f3f3f" opacity="0"/>
+<path d="m5 12.5 4.5 4.5L19 7.5" transform="translate(442 540) scale(.9167)" fill="none" stroke="#f1f1f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="476" y="556.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#f1f1f1" font-weight="400">Best</text>
+<text x="476" y="582.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#f1f1f1" font-weight="400">2160p</text>
+<text x="476" y="608.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#f1f1f1" font-weight="400">1440p</text>
+<text x="476" y="634.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#f1f1f1" font-weight="400">1080p</text>
+<text x="476" y="660.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#f1f1f1" font-weight="400">720p</text>
+</g>
+<path class="k rope" d="M520 452Q620 20 720 130" pathLength="1" fill="none" stroke="#ff8a3d" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="1" stroke-dashoffset="0" opacity=".35"/>
+<g class="k tag" opacity="0"><g><rect x="-22" y="-11" width="44" height="22" rx="4" fill="#000" opacity=".45" filter="url(#sh2)" transform="translate(0 4)"/><path d="M-18 -11 H13 A9 9 0 0 1 22 -2 V2 A9 9 0 0 1 13 11 H-18 A4 4 0 0 1 -22 7 V-7 A4 4 0 0 1 -18 -11Z" fill="#ff8a3d"/><circle cx="-11.5" cy="0" r="3.5" fill="#16120d"/></g></g>
+<rect x="660" y="50" width="320" height="480" rx="12" fill="#000" opacity=".5" filter="url(#sh)" transform="translate(0 15)"/>
+<g class="k app">
+<rect x="660.5" y="50.5" width="319" height="479" rx="12" fill="#121110" stroke="#3a352f"/>
+<path d="M661 94 H979" stroke="#2a2723"/>
+<circle cx="679" cy="72" r="5" fill="#3d3d3d"/>
+<circle cx="696" cy="72" r="5" fill="#3d3d3d"/>
+<circle cx="713" cy="72" r="5" fill="#3d3d3d"/>
+<path fill="#efe7da" d="M737.7 75.2V68.1Q737.7 66.3 738.9 65.2Q740 64.1 741.9 64.1Q743.8 64.1 744.9 65.2Q746.1 66.3 746.1 68.1V68.9Q746.1 69 746 69.1Q745.9 69.2 745.8 69.2H743.4Q743.3 69.2 743.2 69.1Q743.1 69 743.1 68.9V68.1Q743.1 67.5 742.8 67.1Q742.5 66.7 741.9 66.7Q741.3 66.7 741 67.1Q740.7 67.5 740.7 68.1V75.2Q740.7 75.8 741 76.2Q741.3 76.6 741.9 76.6Q742.5 76.6 742.8 76.2Q743.1 75.8 743.1 75.2V73.5Q743.1 73.4 743 73.4H742.1Q742 73.4 741.9 73.4Q741.9 73.3 741.9 73.2V71.3Q741.9 71.2 741.9 71.1Q742 71.1 742.1 71.1H745.8Q745.9 71.1 746 71.1Q746.1 71.2 746.1 71.3V75.2Q746.1 77 744.9 78.1Q743.8 79.2 741.9 79.2Q740 79.2 738.9 78.1Q737.7 77 737.7 75.2ZM752.9 68.3Q753.1 68.4 753 68.6L752.6 71.1Q752.6 71.3 752.3 71.2Q752.1 71.1 751.8 71.1Q751.4 71.1 751.2 71.2Q750.7 71.3 750.4 71.8Q750.1 72.3 750.1 73V78.7Q750.1 78.8 750.1 78.9Q750 79 749.9 79H747.4Q747.3 79 747.3 78.9Q747.2 78.8 747.2 78.7V68.5Q747.2 68.4 747.3 68.3Q747.3 68.2 747.4 68.2H749.9Q750 68.2 750.1 68.3Q750.1 68.4 750.1 68.5V69.3Q750.1 69.4 750.2 69.4Q750.2 69.4 750.3 69.3Q750.8 68.1 752 68.1Q752.6 68.1 752.9 68.3ZM761.5 71.5V78.7Q761.5 78.9 761.4 78.9Q761.3 79 761.2 79H758.8Q758.7 79 758.6 78.9Q758.5 78.9 758.5 78.7V78.3Q758.5 78.2 758.5 78.2Q758.4 78.2 758.4 78.2Q757.7 79.1 756.3 79.2Q755 79.2 754.1 78.5Q753.3 77.8 753.3 75.9Q753.3 74 754.3 73.2Q755.4 72.5 757.5 72.5H758.4Q758.5 72.5 758.5 72.4V71.9Q758.5 71.3 758.2 70.9Q757.9 70.6 757.5 70.6Q757.1 70.6 756.9 70.8Q756.6 71 756.6 71.4Q756.5 71.7 756.3 71.7L753.8 71.7Q753.5 71.7 753.5 71.4Q753.6 69.9 754.7 69Q755.8 68 757.5 68Q759.3 68 760.4 69Q761.5 70 761.5 71.5ZM758.5 75.7V74.7Q758.5 74.6 758.4 74.6H757.6Q757 74.6 756.6 74.9Q756.3 75.2 756.3 75.8Q756.3 76.3 756.6 76.6Q756.8 76.9 757.3 76.9Q757.7 76.9 758.1 76.6Q758.5 76.2 758.5 75.7ZM770.5 71.5V75.6Q770.5 77.3 769.7 78.3Q769 79.2 767.6 79.2Q767.1 79.2 766.6 79Q766.1 78.8 765.7 78.3Q765.6 78.3 765.6 78.3Q765.5 78.3 765.5 78.4V82.7Q765.5 82.8 765.5 82.8Q765.4 82.9 765.3 82.9H762.8Q762.7 82.9 762.7 82.8Q762.6 82.8 762.6 82.7V68.5Q762.6 68.4 762.7 68.3Q762.7 68.2 762.8 68.2H765.3Q765.4 68.2 765.5 68.3Q765.5 68.4 765.5 68.5V68.8Q765.5 68.8 765.6 68.8Q765.7 68.8 765.7 68.7Q766.5 68 767.6 68Q769 68 769.7 69Q770.5 69.9 770.5 71.5ZM766.5 70.6Q766.1 70.6 765.8 70.9Q765.5 71.2 765.5 71.8V75.4Q765.5 76 765.8 76.3Q766.1 76.6 766.5 76.6Q767 76.6 767.3 76.3Q767.5 76 767.5 75.4V71.8Q767.5 71.2 767.3 70.9Q767 70.6 766.5 70.6ZM779.5 71.5V75.6Q779.5 77.3 778.7 78.3Q778 79.2 776.5 79.2Q776.1 79.2 775.6 79Q775.1 78.8 774.7 78.3Q774.6 78.3 774.6 78.3Q774.5 78.3 774.5 78.4V82.7Q774.5 82.8 774.5 82.8Q774.4 82.9 774.3 82.9H771.8Q771.7 82.9 771.6 82.8Q771.6 82.8 771.6 82.7V68.5Q771.6 68.4 771.6 68.3Q771.7 68.2 771.8 68.2H774.3Q774.4 68.2 774.5 68.3Q774.5 68.4 774.5 68.5V68.8Q774.5 68.8 774.6 68.8Q774.7 68.8 774.7 68.7Q775.5 68 776.5 68Q778 68 778.7 69Q779.5 69.9 779.5 71.5ZM775.5 70.6Q775.1 70.6 774.8 70.9Q774.5 71.2 774.5 71.8V75.4Q774.5 76 774.8 76.3Q775.1 76.6 775.5 76.6Q776 76.6 776.2 76.3Q776.5 76 776.5 75.4V71.8Q776.5 71.2 776.2 70.9Q776 70.6 775.5 70.6ZM780.4 78.7V64.6Q780.4 64.4 780.5 64.4Q780.6 64.3 780.7 64.3H783.1Q783.2 64.3 783.3 64.4Q783.4 64.4 783.4 64.6V78.7Q783.4 78.9 783.3 78.9Q783.2 79 783.1 79H780.7Q780.6 79 780.5 78.9Q780.4 78.9 780.4 78.7ZM792 74.5H787.4Q787.3 74.5 787.3 74.6V75.4Q787.3 75.9 787.6 76.3Q787.8 76.6 788.3 76.6Q788.7 76.6 788.9 76.4Q789.2 76.1 789.3 75.7Q789.3 75.5 789.5 75.5L792 75.6Q792.1 75.6 792.1 75.7Q792.2 75.8 792.2 75.9Q792 77.5 791.1 78.3Q790.1 79.2 788.3 79.2Q786.4 79.2 785.4 78.2Q784.3 77.3 784.3 75.6V71.6Q784.3 70 785.4 69Q786.4 68 788.3 68Q790.1 68 791.2 69Q792.3 70 792.3 71.6V74.3Q792.3 74.4 792.2 74.5Q792.1 74.5 792 74.5ZM787.3 71.8V72.6Q787.3 72.7 787.4 72.7H789.2Q789.3 72.7 789.3 72.6V71.8Q789.3 71.3 789 70.9Q788.7 70.6 788.3 70.6Q787.8 70.6 787.6 70.9Q787.3 71.3 787.3 71.8ZM801.1 71.6V78.7Q801.1 78.9 801 78.9Q800.9 79 800.8 79H798.4Q798.3 79 798.2 78.9Q798.1 78.9 798.1 78.7V71.9Q798.1 71.3 797.9 70.9Q797.6 70.6 797.2 70.6Q796.7 70.6 796.4 70.9Q796.2 71.3 796.2 71.9V78.7Q796.2 78.9 796.1 78.9Q796 79 795.9 79H793.4Q793.3 79 793.3 78.9Q793.2 78.9 793.2 78.7V64.6Q793.2 64.4 793.3 64.4Q793.3 64.3 793.4 64.3H795.9Q796 64.3 796.1 64.4Q796.2 64.4 796.2 64.6V68.9Q796.2 68.9 796.2 68.9Q796.3 68.9 796.3 68.8Q797 68 798.2 68Q799.6 68 800.4 69Q801.1 69.9 801.1 71.6ZM802 75.6V71.6Q802 70 803.1 69Q804.2 68 806 68Q807.9 68 808.9 69Q810 70 810 71.6V75.6Q810 77.3 809 78.2Q807.9 79.2 806 79.2Q804.1 79.2 803.1 78.2Q802 77.3 802 75.6ZM807.1 75.4V71.8Q807.1 71.3 806.8 70.9Q806.5 70.6 806 70.6Q805.5 70.6 805.3 70.9Q805 71.3 805 71.8V75.4Q805 75.9 805.3 76.3Q805.5 76.6 806 76.6Q806.5 76.6 806.8 76.3Q807.1 75.9 807.1 75.4ZM810.9 75.6V71.6Q810.9 70 811.9 69Q813 68 814.9 68Q816.7 68 817.8 69Q818.9 70 818.9 71.6V75.6Q818.9 77.3 817.8 78.2Q816.8 79.2 814.9 79.2Q813 79.2 811.9 78.2Q810.9 77.3 810.9 75.6ZM815.9 75.4V71.8Q815.9 71.3 815.6 70.9Q815.3 70.6 814.9 70.6Q814.4 70.6 814.1 70.9Q813.8 71.3 813.8 71.8V75.4Q813.8 75.9 814.1 76.3Q814.4 76.6 814.9 76.6Q815.3 76.6 815.6 76.3Q815.9 75.9 815.9 75.4ZM819.9 78.7V64.6Q819.9 64.4 820 64.4Q820 64.3 820.1 64.3H822.6Q822.7 64.3 822.8 64.4Q822.8 64.4 822.8 64.6V71.5Q822.8 71.6 822.9 71.6Q822.9 71.6 823 71.5L824.8 68.4Q824.9 68.2 825.1 68.2H827.6Q827.8 68.2 827.8 68.3Q827.9 68.4 827.8 68.5L825.5 72Q825.5 72.1 825.5 72.2L828.1 78.7Q828.1 78.7 828.1 78.8Q828.1 79 827.9 79H825.3Q825.1 79 825.1 78.8L823.7 74.6Q823.7 74.6 823.6 74.6Q823.6 74.5 823.6 74.6L822.9 75.7Q822.8 75.8 822.8 75.8V78.7Q822.8 78.9 822.8 78.9Q822.7 79 822.6 79H820.1Q820 79 820 78.9Q819.9 78.9 819.9 78.7Z"/>
+<rect x="676" y="114" width="288" height="44" rx="8" fill="#1e1c19"/><rect x="676.5" y="114.5" width="287" height="43" rx="7.5" fill="none" stroke="#3a352f"/>
+<rect class="k ring" x="677" y="115" width="286" height="42" rx="7" fill="none" stroke="#ff8a3d" stroke-width="2" opacity="0"/>
+<g class="k hint" opacity="0"><text x="688" y="141.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#a69c8f" font-weight="400">Paste a video link</text></g>
+<g class="k typed"><rect x="688" y="124" width="262" height="24" fill="none"/><text x="688" y="140.7" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#efe7da">https://www.youtube.com/watch?v=…</text></g>
+<g class="k card">
+<rect x="676" y="180" width="288" height="200" rx="10" fill="#1e1c19"/>
+<g clip-path="url(#cardclip)"><g transform="translate(676 180)" clip-path="url(#cd-clip)"><rect width="288" height="128" fill="url(#cd-sky)"/><path d="M0 29.5 L288 106.7 V128 H0Z" fill="#33424a"/><path d="M0 103.7 L288 52.9 V128 H0Z" fill="#26323a"/><circle cx="201.6" cy="48.6" r="13" fill="#f6c98a"/></g></g>
+<rect x="690" y="324" width="220" height="14" rx="4" fill="#2a2723"/><rect x="690" y="350" width="120" height="14" rx="4" fill="#2a2723"/>
+<rect x="676" y="400" width="288" height="44" rx="8" fill="#1e1c19"/>
+<text x="688" y="427.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#a69c8f" font-weight="500">Quality</text>
+<rect class="k quality" x="892" y="409.5" width="60" height="25" rx="5" fill="#ff8a3d" opacity="1"/>
+<text class="k qtext" x="922" y="427.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#16120d">1080p</text>
+<rect x="676" y="464" width="288" height="44" rx="8" fill="#ff8a3d"/><path fill="#16120d" d="M783.8 493.7V478.9Q783.8 478.8 783.9 478.7Q783.9 478.6 784.1 478.6H788Q790 478.6 791.2 479.8Q792.5 480.9 792.5 482.9V489.7Q792.5 491.7 791.2 492.8Q790 494 788 494H784.1Q783.9 494 783.9 493.9Q783.8 493.8 783.8 493.7ZM787 491.3 788 491.3Q788.6 491.3 789 490.8Q789.3 490.3 789.4 489.5V483.1Q789.4 482.2 789 481.7Q788.6 481.3 788 481.3H787Q786.9 481.3 786.9 481.4V491.2Q786.9 491.3 787 491.3ZM793.5 490.5V486.2Q793.5 484.5 794.7 483.5Q795.8 482.5 797.7 482.5Q799.7 482.5 800.8 483.5Q801.9 484.5 801.9 486.2V490.5Q801.9 492.2 800.8 493.2Q799.7 494.2 797.7 494.2Q795.8 494.2 794.6 493.2Q793.5 492.2 793.5 490.5ZM798.8 490.2V486.4Q798.8 485.9 798.5 485.5Q798.2 485.2 797.7 485.2Q797.2 485.2 796.9 485.5Q796.6 485.9 796.6 486.4V490.2Q796.6 490.8 796.9 491.1Q797.2 491.5 797.7 491.5Q798.2 491.5 798.5 491.1Q798.8 490.8 798.8 490.2ZM804.9 493.8 802.5 483V482.9Q802.5 482.7 802.7 482.7H805.2Q805.4 482.7 805.5 482.9L806.4 488.9Q806.4 489 806.5 489Q806.5 489 806.5 488.9L807.5 482.9Q807.5 482.7 807.8 482.7H810Q810.2 482.7 810.3 482.9L811.3 489Q811.3 489 811.4 489Q811.4 489 811.4 488.9L812.3 482.9Q812.4 482.7 812.6 482.7L815.1 482.7Q815.3 482.7 815.3 483L812.9 493.8Q812.9 494 812.6 494H810.1Q809.9 494 809.8 493.8L808.9 488.2Q808.9 488.1 808.8 488.1Q808.8 488.1 808.8 488.2L807.9 493.8Q807.8 494 807.6 494H805.2Q804.9 494 804.9 493.8ZM824.3 486.3V493.7Q824.3 493.8 824.2 493.9Q824.1 494 824 494H821.4Q821.3 494 821.2 493.9Q821.2 493.8 821.2 493.7V486.5Q821.2 485.9 820.9 485.5Q820.7 485.2 820.2 485.2Q819.7 485.2 819.4 485.5Q819.1 485.9 819.1 486.6V493.7Q819.1 493.8 819 493.9Q819 494 818.9 494H816.3Q816.2 494 816.1 493.9Q816 493.8 816 493.7V483Q816 482.8 816.1 482.8Q816.2 482.7 816.3 482.7H818.9Q819 482.7 819 482.8Q819.1 482.8 819.1 483V483.4Q819.1 483.4 819.2 483.4Q819.2 483.4 819.3 483.4Q820 482.5 821.3 482.5Q822.8 482.5 823.5 483.5Q824.3 484.5 824.3 486.3ZM825.3 493.7V478.9Q825.3 478.8 825.4 478.7Q825.5 478.6 825.6 478.6H828.2Q828.3 478.6 828.3 478.7Q828.4 478.8 828.4 478.9V493.7Q828.4 493.8 828.3 493.9Q828.3 494 828.2 494H825.6Q825.5 494 825.4 493.9Q825.3 493.8 825.3 493.7ZM829.4 490.5V486.2Q829.4 484.5 830.5 483.5Q831.7 482.5 833.6 482.5Q835.6 482.5 836.7 483.5Q837.8 484.5 837.8 486.2V490.5Q837.8 492.2 836.7 493.2Q835.6 494.2 833.6 494.2Q831.6 494.2 830.5 493.2Q829.4 492.2 829.4 490.5ZM834.7 490.2V486.4Q834.7 485.9 834.4 485.5Q834.1 485.2 833.6 485.2Q833.1 485.2 832.8 485.5Q832.5 485.9 832.5 486.4V490.2Q832.5 490.8 832.8 491.1Q833.1 491.5 833.6 491.5Q834.1 491.5 834.4 491.1Q834.7 490.8 834.7 490.2ZM847.1 486.2V493.7Q847.1 493.8 847.1 493.9Q847 494 846.9 494H844.3Q844.2 494 844.1 493.9Q844 493.8 844 493.7V493.3Q844 493.2 844 493.2Q844 493.1 843.9 493.2Q843.2 494.1 841.7 494.2Q840.4 494.2 839.5 493.5Q838.5 492.8 838.5 490.8Q838.5 488.7 839.7 488Q840.8 487.2 842.9 487.2H843.9Q844 487.2 844 487.1V486.5Q844 485.9 843.7 485.6Q843.4 485.2 842.9 485.2Q842.6 485.2 842.3 485.4Q842 485.6 842 486.1Q842 486.3 841.7 486.3L839.1 486.3Q838.8 486.3 838.8 486Q838.9 484.4 840 483.5Q841.2 482.5 842.9 482.5Q844.8 482.5 846 483.5Q847.1 484.5 847.1 486.2ZM844 490.5V489.5Q844 489.4 843.9 489.4H843Q842.4 489.4 842.1 489.7Q841.7 490.1 841.7 490.7Q841.7 491.2 842 491.5Q842.3 491.8 842.7 491.8Q843.2 491.8 843.6 491.4Q844 491.1 844 490.5ZM853.5 478.6H856.1Q856.2 478.6 856.3 478.7Q856.3 478.8 856.3 478.9V493.7Q856.3 493.8 856.3 493.9Q856.2 494 856.1 494H853.5Q853.4 494 853.3 493.9Q853.2 493.8 853.2 493.7V493.4Q853.2 493.3 853.2 493.3Q853.2 493.3 853.1 493.3Q852.4 494.2 851.1 494.2Q849.6 494.2 848.8 493.2Q848.1 492.2 848.1 490.5V486.2Q848.1 484.4 848.9 483.5Q849.6 482.5 851.1 482.5Q851.6 482.5 852.1 482.7Q852.7 482.9 853.1 483.4Q853.2 483.4 853.2 483.4Q853.2 483.4 853.2 483.3V478.9Q853.2 478.8 853.3 478.7Q853.4 478.6 853.5 478.6ZM853.2 490.5V486.1Q853.2 485.7 852.9 485.4Q852.6 485.2 852.2 485.2Q851.7 485.2 851.5 485.5Q851.2 485.9 851.2 486.4V490.3Q851.2 490.8 851.5 491.2Q851.7 491.5 852.2 491.5Q852.6 491.5 852.9 491.2Q853.2 491 853.2 490.5Z"/>
+</g>
+</g>
+<g class="k cursor" style="transform:translate(420px,500px)"><g transform="scale(1.375)"><path d="M1 1v17l4.6-4.4 3 6.6 3-1.4-3-6.4H15Z" fill="#fff" stroke="#111" stroke-width="1.2" stroke-linejoin="round"/></g></g>
+</g></svg>
